@@ -13,42 +13,51 @@ Graduate School of Informatics, Middle East Technical University (METU)
 
 </div>
 
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 
 ---
 <br>
 
 This project addresses an image‐captioning task developed for the **Transformers and Attention-Based Deep Networks** course. In the first phase, I sought to determine whether it was possible to enhance PaliGemma’s descriptive accuracy by precisely controlling the interaction between Siglip (the vision encoder) and Gemma (the language decoder). Specifically, I investigated whether manipulating the insertion points of hard prompt tokens and continuous visual tokens could compel Gemma to ground its captions more faithfully in the image content and thereby reduce hallucinations. This approach ultimately did not yield the desired improvements.
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 
 ### Project Overview
 <br>
 
-We navigated five main stages in Phase 2:
+I navigated eight main stages in Phase 2:
 
 1. Siglip + Projection + Gemma Prototype
 
-2. Hard‑Prompt Fine‑Tuning of the off‑the‑shelf PaliGemma
+2. Setting the Baseline Model
 
-3. Soft‑Prompt Adaptation with learnable continuous tokens
+3. Hard‑Prompt Fine‑Tuning of the off‑the‑shelf PaliGemma
 
-4. Hyperparameter Search, Ablation Study & Best Model design and training
+4. Soft‑Prompt Adaptation with learnable continuous tokens
 
-5. Comparisons of all models through  W&B Reports
+5. Hyperparameter Search
+
+6. Ablation Study 
+
+7. Best Model design and fine-tuning
+
+8. Comparisons of all models through  W&B Reports 
 
 <br>
 
 All experiments are version‑controlled on GitHub and tracked via Weights & Biases (W&B). 
 
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
-  
+<!------------------------------------------------------------------------------------------------------------------------------------------------>  
 ### First Phase : 
 <br>
-In Phase 1, I asked:  
+In Phase 1 :   
 <br>
-The Research Question: 
+<br>
+My Research Question was: 
+<br> 
 
 > Can we improve PaliGemma’s caption fidelity by precisely controlling where Siglip’s visual embeddings and hard-prompt tokens enter Gemma?
 
@@ -57,17 +66,17 @@ In phase 2, I built a simple prototype to answer that question:
 > Siglip (vision model) → Projection → Gemma (language model)
 
 Notebook: `2_Siglip_plus_Proj_plus_Gemma.ipynb`
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
-  
+ <!------------------------------------------------------------------------------------------------------------------------------------------------> 
 ### Second Phase : 
 
 <br> 
 
 In the second phase — now organized into 8 Jupyter notebooks — I aim to produce preliminary results under <br>
-three main strategies. 
+different strategies.
 
-1. The first strategy involved reconstructing PaliGemma’s architecture at a subcomponent  <br>
+The first strategy involved reconstructing PaliGemma’s architecture at a subcomponent  <br>
 level so that a custom module could be interposed between vision and language models. This was in order for  <br> 
 answering the question in phase 1.  <br> 
 
@@ -77,9 +86,9 @@ In the notebook :
 
 I implemented a streamlined pipeline comprising Siglip, a simple linear projection, and Gemma. These experiments <br>
 revealed that the true PaliGemma architecture is substantially more intricate: its projection layers are not purely <br>
-linear, it has been pre‐trained on extremely large datasets, and its decoder expects continuous embeddings rather <br>
-than discrete token representations. The computational demands of retraining even a frozen Gemma model <br>
-— with Low‑Rank Adaptation (LoRA) applied — exceeded the capacity of a 16 GB GPU.  <br> 
+linear, it has been pre‐trained on extremely large datasets, and its Gemma module expects continuous embeddings rather <br>
+than discrete token representations as original Gemma expects. The computational demands of retraining even a frozen <br>
+Gemma model — with Low‑Rank Adaptation (LoRA) applied — exceeded the capacity of a 16 GB GPU.  <br> 
 
 Siglip (vision model) → Projection → Gemma (language model)
 
@@ -87,15 +96,15 @@ Notebook: `2_Siglip_plus_Proj_plus_Gemma.ipynb`
 
 Results:
 
-- PaliGemma’s projection is non-linear and trained on massive data.
+- PaliGemma’s projection is more complex than a basic linear layer and trained on massive data.
 - Full end-to-end training (even with LoRA and freezing) exceeded 16 GB GPU limits.
 - Conclusion: re-implementing the full pipeline is infeasible on limited hardware.
 
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 
-
-2. Consequently, I refocused the investigation on prompt engineering. In the notebook adapted from Google’s official <br>
+Consequently, I refocused the investigation on prompt engineering. In the notebook adapted from Google’s official <br>
 fine-tuning guide, originally at : <br> 
 <br>
 
@@ -155,11 +164,10 @@ In summary, end‑to‑end retraining of PaliGemma’s constituent models demand
 and substantial GPU resources, making it impractical in a limited‐resource setting. In contrast, lightweight <br>
 fine‑tuning—specifically, replacing hard prompts with optimized soft prompts—offers an effective and computationally <br>
 efficient path to enhancing metric scores like Bleu.
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ### Phase 2 Deliverables : 
-<br>
 <br>
 
 #### 0. README.md
@@ -275,16 +283,13 @@ Explore hybrid token strategies:
  
 
 2. Hard‑token initialization of soft prompts
-
-
-
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 
 GitHub: https://github.com/turgay-yildiz/DI-725-Transformers-and-Attention-Based-Deep-Networks-/tree/main/Final_Project/Phase_2
 
 Weights & Biases: https://wandb.ai/DI_725___Final_Project/projects
-
-
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
 ---
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
